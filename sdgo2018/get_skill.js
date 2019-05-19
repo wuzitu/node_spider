@@ -173,21 +173,7 @@ function start() {
 
 
 
-                    shild1_HP: shild1_HP,
-                    shild1_def: shild1_def,
-                    shild2_HP: shild2_HP,
-                    shild2_def: shild2_def,
-                    skill1: skill1,
-                    skill2: skill2,
-                    YUKID: YUKID,
-                    texing1: texing1,
-                    texing2: texing2,
-                    arm1_1_img: arm1_1_img,
-                    arm1_2_img: arm1_2_img,
-                    arm1_3_img: arm1_3_img,
-                    arm2_1_img: arm2_1_img,
-                    arm2_2_img: arm2_2_img,
-                    arm2_3_img: arm2_3_img
+            
                 }
 
                 console.log(gundamList[count].model + ' is ok')
