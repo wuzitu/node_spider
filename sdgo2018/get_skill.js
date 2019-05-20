@@ -42,145 +42,47 @@ function start() {
     // request.get(`http://sdgo2018.rf.gd/search_v2?id=10238`)
     console.log(count, ' ID:' + ID)
     ID = 14006
-    request.get(`http://sdgo.unaux.com/?id=14006&l=SC&fs=16`)
-    // request.get(`http://sdgo2018.rf.gd/search_v2?id=${ID}`)
-        .set('Cookie', '__test=087660f7148faf26a6ac82b072294756; fs=16; l=SC')
+    // request.get(`http://sdgo.unaux.com/?id=14006&l=SC&fs=16`)
+    request.get(`http://sdgo2018.rf.gd/search_v2?id=${ID}`)
+        .set('Cookie', '__test=1edf9c5d5717e6ae340ff751e82f251a; fs=16; l=SC')
         .then(res => {
             try {
                 logger.info(`获取${gundamList[count] && gundamList[count].model}ok,ID:${gundamList[count] && gundamList[count].ID}`)
                 let gundam = {}
                 const $ = cheerio.load(res.text)
-                let HP = $($($('#info').find('tr')[4]).find('td')[1]).text().trim();
-                let att2 = $($($('#info').find('tr')[5]).find('td')[2]).text().trim();
-                let def2 = $($($('#info').find('tr')[6]).find('td')[2]).text().trim();
-                let fly2 = $($($('#info').find('tr')[7]).find('td')[2]).text().trim();
-                let ctl2 = $($($('#info').find('tr')[8]).find('td')[2]).text().trim();
-                let dect = $($($('#info').find('tr')[10]).find('td')[1]).text().trim();
-                let dect2 = $($($('#info').find('tr')[10]).find('td')[2]).text().trim();
-                let modelType = '';
-                let trindex = 0;
-                if ($($($('#info').find('tr')[11])).text().trim().match('特性')) {
-                    modelType = $($($('#info').find('tr')[11]).find('td')[1]).text().trim().split('、');
-                    trindex++;
-                }
 
                 let sdgoID = $($($('#info').find('input'))).val()
                 console.log(sdgoID)
-                // weapon
-                let arm1_1_img = $($($("#armament").find('tr')[1]).find('td img')).attr('srcc') ? $($($("#armament").find('tr')[1]).find('td img')).attr('srcc') : "0";
-                let arm1_1_des = $($($("#armament").find('tr')[1]).find('td')[1]).text().trim() || "";
-                let arm1_1_power = $($($("#armament").find('tr')[1]).find('td')[2]).text().trim() || "";
-                let arm1_1_ammunitition = $($($("#armament").find('tr')[1]).find('td')[3]).text().trim() || "";
-                let arm1_1_reload = $($($("#armament").find('tr')[1]).find('td')[4]).text().trim() || "";
-                // let arm1_1_effact = $($($("#armament").find('tr')[1]).find('td')[5]).text().trim() || "";
-                let arm1_1_effact = $($($("#armament").find('tr')[1]).find('td')[5]).text() ? cheerio.load($($($("#armament").find('tr')[1]).find('td')[5]).html().replace(/\s/, '').replace('<br>', ',')).text().trim() : '';
-
-                let arm1_2_img = $($($("#armament").find('tr')[2]).find('td img')).attr('srcc') ? $($($("#armament").find('tr')[2]).find('td img')).attr('srcc') : "0";
-                let arm1_2_des = $($($("#armament").find('tr')[2]).find('td')[1]).text().trim() || "";
-                let arm1_2_power = $($($("#armament").find('tr')[2]).find('td')[2]).text().trim() || "";
-                let arm1_2_ammunitition = $($($("#armament").find('tr')[2]).find('td')[3]).text().trim() || "";
-                let arm1_2_reload = $($($("#armament").find('tr')[2]).find('td')[4]).text().trim() || "";
-                let arm1_2_effact = $($($("#armament").find('tr')[2]).find('td')[5]).text() ? cheerio.load($($($("#armament").find('tr')[2]).find('td')[5]).html().replace(/\s/, '').replace('<br>', ',')).text().trim() : '';
-
-                let arm1_3_img = $($($("#armament").find('tr')[3]).find('td img')).attr('srcc') ? $($($("#armament").find('tr')[3]).find('td img')).attr('srcc') : "0";
-                let arm1_3_des = $($($("#armament").find('tr')[3]).find('td')[1]).text().trim() || "";
-                let arm1_3_power = $($($("#armament").find('tr')[3]).find('td')[2]).text().trim() || "";
-                let arm1_3_ammunitition = $($($("#armament").find('tr')[3]).find('td')[3]).text().trim() || "";
-                let arm1_3_reload = $($($("#armament").find('tr')[3]).find('td')[4]).text().trim() || "";
-                let arm1_3_effact = $($($("#armament").find('tr')[3]).find('td')[5]).text() ? cheerio.load($($($("#armament").find('tr')[3]).find('td')[5]).html().replace(/\s/, '').replace('<br>', ',')).text().trim() : '';
-
-                let shild1_HP = $($($("#armament").find('tr')[4]).find('td')[1]).text().trim() || "";
-                let shild1_def = $($($("#armament").find('tr')[4]).find('td')[2]).text().trim() || "";
-
-                let arm2_1_img = $($($("#armament").find('tr')[7]).find('td img')).attr('srcc') ? $($($("#armament").find('tr')[7]).find('td img')).attr('srcc') : "0";
-                let arm2_1_des = $($($("#armament").find('tr')[7]).find('td')[1]).text().trim() || "";
-                let arm2_1_power = $($($("#armament").find('tr')[7]).find('td')[2]).text().trim() || "";
-                let arm2_1_ammunitition = $($($("#armament").find('tr')[7]).find('td')[3]).text().trim() || "";
-                let arm2_1_reload = $($($("#armament").find('tr')[7]).find('td')[4]).text().trim() || "";
-                let arm2_1_effact = $($($("#armament").find('tr')[7]).find('td')[5]).text() ? cheerio.load($($($("#armament").find('tr')[7]).find('td')[5]).html().replace(/\s/, '').replace('<br>', ',')).text().trim() : '';
-
-                let arm2_2_img = $($($("#armament").find('tr')[8]).find('td img')).attr('srcc') ? $($($("#armament").find('tr')[8]).find('td img')).attr('srcc') : "0";
-                let arm2_2_des = $($($("#armament").find('tr')[8]).find('td')[1]).text().trim() || "";
-                let arm2_2_power = $($($("#armament").find('tr')[8]).find('td')[2]).text().trim() || "";
-                let arm2_2_ammunitition = $($($("#armament").find('tr')[8]).find('td')[3]).text().trim() || "";
-                let arm2_2_reload = $($($("#armament").find('tr')[8]).find('td')[4]).text().trim() || "";
-                let arm2_2_effact = $($($("#armament").find('tr')[8]).find('td')[5]).text() ? cheerio.load($($($("#armament").find('tr')[8]).find('td')[5]).html().replace(/\s/, '').replace('<br>', ',')).text().trim() : '';
-
-                let arm2_3_img = $($($("#armament").find('tr')[9]).find('td img')).attr('srcc') ? $($($("#armament").find('tr')[9]).find('td img')).attr('srcc') : "0";
-                let arm2_3_des = $($($("#armament").find('tr')[9]).find('td')[1]).text().trim() || "";
-                let arm2_3_power = $($($("#armament").find('tr')[9]).find('td')[2]).text().trim() || "";
-                let arm2_3_ammunitition = $($($("#armament").find('tr')[9]).find('td')[3]).text().trim() || "";
-                let arm2_3_reload = $($($("#armament").find('tr')[9]).find('td')[4]).text().trim() || "";
-                let arm2_3_effact = $($($("#armament").find('tr')[9]).find('td')[5]).text() ? cheerio.load($($($("#armament").find('tr')[9]).find('td')[5]).html().replace(/\s/, '').replace('<br>', ',')).text().trim() : '';
-
-                let shild2_HP = $($($("#armament").find('tr')[10]).find('td')[1]).text().trim() || "";
-                let shild2_def = $($($("#armament").find('tr')[10]).find('td')[2]).text().trim() || "";
-
-
                 // skill
-                let skill1 = $($($('#info').find('tr')[11 + trindex]).find('td a img')).attr('alt') ? $($($('#info').find('tr')[11 + trindex]).find('td a img')).attr('alt').split(/\n/).slice(2) : []
-                let skill2 = $($($('#info').find('tr')[12 + trindex]).find('td a img')).attr('alt') ? $($($('#info').find('tr')[12 + trindex]).find('td a img')).attr('alt').split(/\n/).slice(2) : []
+                // let skill1 = $($($('#info').find('tr')[11 + trindex]).find('td a img')).attr('alt') ? $($($('#info').find('tr')[11 + trindex]).find('td a img')).attr('alt').split(/\n/).slice(2) : []
+                // let skill2 = $($($('#info').find('tr')[12 + trindex]).find('td a img')).attr('alt') ? $($($('#info').find('tr')[12 + trindex]).find('td a img')).attr('alt').split(/\n/).slice(2) : []
+                let skill1 = ""
+                let skill2 = ""
 
-                let YUKID = $($($("#id table tr")[0]).find('a')[3]).attr('href') ? $($($("#id table tr")[0]).find('a')[3]).attr('href').trim().slice(-5) : ''
+                for (var i = 9; i < 20; i++) {
+                    let ele = $($('#info').find('tr')[i])
+                    if ($(ele).find("td").length && $($(ele).find("td")[0]).text().match("技能一")) {
+                        skill1 = $($(ele).find('td a svg')).length &&$($(ele).find('td a svg')).attr('tit') ? $($(ele).find('td a svg')).attr('tit').split("<n>").slice(2) : []
+                    }
+                    if ($(ele).find("td").length && $($(ele).find("td")[0]).text().match("技能二")) {
+                        skill2 = $($(ele).find('td a svg')).length && $($(ele).find('td a svg')).attr('tit') ? $($(ele).find('td a svg')).attr('tit').split("<n>").slice(2) : []
+                    }
+                }
 
-                // texing
-                let texing1 = $($($("#armament").find('tr')[5]).find('td')[2]).text().trim() && $($($("#armament").find('tr')[5]).find('td')[2]).text().trim().slice(5) || "";
-                let texing2 = $($($("#armament").find('tr')[11]).find('td')[2]).text().trim() && $($($("#armament").find('tr')[5]).find('td')[2]).text().trim().slice(5) || "";
+                let YUKID = $($($("#id table tr")[0]).find('a')[3]) && $($($("#id table tr")[0]).find('a')[3]).attr('href') ? $($($("#id table tr")[0]).find('a')[3]).attr('href').trim().slice(-5) : ''
 
                 gundam = {
                     ID: sdgoID,
-                    HP: HP,
-                    att2: att2,
-                    def2: def2,
-                    fly2: fly2,
-                    ctl2: ctl2,
-                    dect: dect,
-                    dect2: dect2,
-                    modelType: modelType,
-                    arm1_1_des: arm1_1_des,
-                    arm1_1_power: arm1_1_power,
-                    arm1_1_ammunitition: arm1_1_ammunitition,
-                    arm1_1_reload: arm1_1_reload,
-                    arm1_1_effact: arm1_1_effact,
-                    arm1_2_des: arm1_2_des,
-                    arm1_2_power: arm1_2_power,
-                    arm1_2_ammunitition: arm1_2_ammunitition,
-                    arm1_2_reload: arm1_2_reload,
-                    arm1_2_effact: arm1_2_effact,
-                    arm1_3_des: arm1_3_des,
-                    arm1_3_power: arm1_3_power,
-                    arm1_3_ammunitition: arm1_3_ammunitition,
-                    arm1_3_reload: arm1_3_reload,
-                    arm1_3_effact: arm1_3_effact,
-
-                    arm2_1_des: arm2_1_des,
-                    arm2_1_power: arm2_1_power,
-                    arm2_1_ammunitition: arm2_1_ammunitition,
-                    arm2_1_reload: arm2_1_reload,
-                    arm2_1_effact: arm2_1_effact,
-                    arm2_2_des: arm2_2_des,
-                    arm2_2_power: arm2_2_power,
-                    arm2_2_ammunitition: arm2_2_ammunitition,
-                    arm2_2_reload: arm2_2_reload,
-                    arm2_2_effact: arm2_2_effact,
-                    arm2_3_des: arm2_3_des,
-                    arm2_3_power: arm2_3_power,
-                    arm2_3_ammunitition: arm2_3_ammunitition,
-                    arm2_3_reload: arm2_3_reload,
-                    arm2_3_effact: arm2_3_effact,
-
-
-
-
-
-            
+                    skill1: skill1,
+                    skill2: skill2,
+                    YUKID: YUKID,
                 }
 
                 console.log(gundamList[count].model + ' is ok')
                 resultList.push(gundam)
 
                 if (resultList.length >= 766) {
-                    fs.writeFileSync(__dirname + '/result.json', JSON.stringify(resultList))
+                    fs.writeFileSync(__dirname + '/result0520.json', JSON.stringify(resultList))
                 }
                 // continue
                 count++
