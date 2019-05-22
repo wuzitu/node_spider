@@ -41,10 +41,9 @@ function start() {
     }
     // request.get(`http://sdgo2018.rf.gd/search_v2?id=10238`)
     console.log(count, ' ID:' + ID)
-    ID = 14006
     // request.get(`http://sdgo.unaux.com/?id=14006&l=SC&fs=16`)
     request.get(`http://sdgo2018.rf.gd/search_v2?id=${ID}`)
-        .set('Cookie', '__test=1edf9c5d5717e6ae340ff751e82f251a; fs=16; l=SC')
+        .set('Cookie', 'fs=16; __test=6db42d3a9062383bec8e2d490caf0cad; l=SC')
         .then(res => {
             try {
                 logger.info(`获取${gundamList[count] && gundamList[count].model}ok,ID:${gundamList[count] && gundamList[count].ID}`)
